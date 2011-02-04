@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/withington_mfw1/!svn/ver/1/mfw1/public/views/main
+END
+another.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/withington_mfw1/!svn/ver/9/mfw1/public/views/main/another.cfm
+END
+default.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/withington_mfw1/!svn/ver/9/mfw1/public/views/main/default.cfm
+END
+error.cfm
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/withington_mfw1/!svn/ver/9/mfw1/public/views/main/error.cfm
+END
