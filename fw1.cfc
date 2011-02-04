@@ -52,12 +52,6 @@
 				<cfset arguments.path = getDirectoryFromPath( arguments.path ) />
 				<cfset omitIndex = true />
 			</cfif>
-		<cfelseif arguments.path eq "useRequestURI">
-			<cfset arguments.path = getPageContext().getRequest().getRequestURI() />
-			<cfif variables.framework.SESOmitIndex>
-				<cfset arguments.path = getDirectoryFromPath( arguments.path ) />
-				<cfset omitIndex = true />
-			</cfif>
 		</cfif>
 		
 		<cfif find( '?', arguments.action ) and arguments.queryString is ''>
@@ -566,7 +560,7 @@
 			pathInfo = listToArray( pathInfo, '/' );
 		}
 		sesN = arrayLen( pathInfo );
-		if ( ( sesN gt 0 or variables.framework.generateSES ) and variables.framework.baseURL is not 'useRequestURI' ) {
+		if ( sesN gt 0 or variables.framework.generateSES ) {
 			request.generateSES = true;
 		}
 		for ( sesIx = 1; sesIx lte sesN; sesIx = sesIx + 1 ) {
@@ -1134,7 +1128,6 @@
 		if ( not structKeyExists(variables.framework, 'unhandledPaths') ) {
 			variables.framework.unhandledPaths = '/flex2gateway';
 		}				
-
 		// convert unhandledPaths to regex:
 		variables.framework.unhandledPathRegex = replaceNoCase(
 			REReplace( variables.framework.unhandledPaths, '(\+|\*|\?|\.|\[|\^|\$|\(|\)|\{|\||\\)', '\\\1', 'all' ),
@@ -1148,7 +1141,7 @@
 		if ( not structKeyExists( variables.framework, 'cacheFileExists' ) ) {
 			variables.framework.cacheFileExists = false;
 		}
-		variables.framework.version = '1.1_1.2_010';
+		variables.framework.version = '1.1_1.2_009';
 	}
 
 	function setupRequestDefaults() { // "private"
@@ -1206,6 +1199,19 @@
 				</cfif>
 			</cfif>
 		</cfloop>
+		<!--- Custom Function Added By Greg Moser on 12/22/2010 --->
+		<cfset var meta = getMetaData(arguments.cfc) />
+		<cfset var i = 0 />
+		<cfif isDefined('meta.accessors') and meta.accessors eq true>
+			<cfloop from="1" to="#arrayLen(meta.properties)#" index="i">
+				<cfif arguments.beanFactory.containsBean(meta.properties[i].name)>
+					<cfset args = structNew() />
+					<cfset args[meta.properties[i].name] = arguments.beanFactory.getBean(meta.properties[i].name) />
+					<cfinvoke component="#arguments.cfc#" method="set#meta.properties[i].name#" argumentCollection="#args#" />
+				</cfif>
+			</cfloop>
+		</cfif>
+		<!--- End: Greg Moser Addition --->
 
 	</cffunction>
 	
@@ -1242,7 +1248,7 @@
 		<cfargument name="method" />
 
 		<cfset var meta = 0 />
-
+		
 		<cfif structKeyExists(arguments.cfc,arguments.method) or structKeyExists(arguments.cfc,"onMissingMethod")>
 			<cftry>
 				<cfinvoke component="#arguments.cfc#" method="#arguments.method#" rc="#request.context#" />
@@ -1436,12 +1442,6 @@
 		<cfset var rc = request.context />
 		<cfset var response = '' />
 		<cfset var local = structNew() />
-		<cfset var $ = structNew() />
-		
-		<!--- integration point with Mura --->
-		<cfif structKeyExists( rc, '$' )>
-			<cfset $ = rc.$ />
-		</cfif>
 
 		<cfif not structKeyExists( request, "controllerExecutionComplete" ) >
 			<cfset raiseException( type="FW1.layoutExecutionFromController", message="Invalid to call the layout method at this point.",
@@ -1460,12 +1460,6 @@
 		<cfset var rc = request.context />
 		<cfset var response = '' />
 		<cfset var local = structNew() />
-		<cfset var $ = structNew() />
-		
-		<!--- integration point with Mura --->
-		<cfif structKeyExists( rc, '$' )>
-			<cfset $ = rc.$ />
-		</cfif>
 		
 		<cfset structAppend( local, arguments.args ) />
 

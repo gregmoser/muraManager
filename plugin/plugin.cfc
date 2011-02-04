@@ -32,6 +32,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 			if ( val(getInstallationCount()) neq 1 ) {
 				variables.config.getPluginManager().deletePlugin(local.moduleid);
 			} else {
+				installDatabase();
 				// doSomethingElseIfNeeded();
 			};
 
@@ -53,6 +54,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 			// don't delete the subTypes if this is being invoked by the deletePlugin() from install()
 			if ( val(getInstallationCount()) eq 1 ) {
 				//deleteSomethingAppSpecificIfNeeded();
+				deleteDatabase();
 			};
 			application.appInitialized = false;
 		</cfscript>
@@ -74,7 +76,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	
 	<cffunction name="installDatabase" access="private" returntype="any" output="false">
 		<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
-			CREATE TABLE [MuraMonitorInstance] (
+			CREATE TABLE [dbo].[MuraMonitorInstance] (
 				[instanceID] [int] NOT NULL,
 				[instanceName] [char](50) NULL,
 				[instanceHostname] [char](50) NULL,
@@ -82,12 +84,14 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 				[instancePasskey] [char](50) NULL
 			) ON [PRIMARY]
 		</cfquery>
+		<cfreturn true />
 	</cffunction>
 	
 	<cffunction name="deleteDatabase" access="private" returntype="any" output="false">
 		<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
 			DROP TABLE [MuraMonitorInstance]
 		</cfquery>
+		<cfreturn true />
 	</cffunction>
 
 </cfcomponent>
