@@ -12,7 +12,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 --->
 <cfscript>
 	// !important: enter the plugin packageName here. must be the same as found in '/plugin/config.xml.cfm'
-	variables.instance.package = 'muraFW1';
+	variables.instance.package = 'muraManager';
 
 	// less commonly modified
 	variables.instance.defaultSection = 'main';
