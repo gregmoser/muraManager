@@ -18,7 +18,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	variables.instance.defaultSection = 'main';
 	variables.instance.defaultItem = 'default';
 	variables.instance.usingSubSystems = true;
-	variables.instance.defaultSubsystem = 'public';
+	variables.instance.defaultSubsystem = 'admin';
 
 	// ***** rarely modified *****
 	variables.framework = StructNew();
