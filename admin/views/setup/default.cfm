@@ -1,6 +1,6 @@
 <cfoutput>
 	<h3>Add Instance</h3>	
-	<form action="?admin:setup.addinstance">
+	<form action="?admin:setup.addinstance" method="post">
 		<dl>
 			<dt>Instance Name</dt>
 			<dd><input type="text" name="instanceName" value="" /></dd>
