@@ -33,7 +33,6 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	//variables.framework.reloadApplicationOnEveryRequest = false;
 	variables.framework.generateSES = false;
 	variables.framework.SESOmitIndex = true;
-	variables.framework.baseURL = 'useRequestURI';
 	variables.framework.suppressImplicitService = false;
 	variables.framework.unhandledExtensions = 'cfc';
 	variables.framework.unhandledPaths = '/flex2gateway';

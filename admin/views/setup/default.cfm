@@ -1,7 +1,6 @@
 <cfoutput>
 	<h3>Add Instance</h3>	
-	<form action="">
-		<input type="hidden" name="action" value="admin:setup.addinstance" />
+	<form action="?admin:setup.addinstance">
 		<dl>
 			<dt>Instance Name</dt>
 			<dd><input type="text" name="instanceName" value="" /></dd>
@@ -18,5 +17,6 @@
 			<dt>Passkey</dt>
 			<dd><input type="text" name="Passkey" value="" /></dd>
 		</dl>
+		<button type="submit">Add</button>
 	</form>
 </cfoutput>
