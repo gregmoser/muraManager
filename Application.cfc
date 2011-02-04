@@ -28,6 +28,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 				// in the setupRequest() it is also assigned to request.context to allow you to access the pluginConfig with 'rc.pc' OR 'rc.pluginConfig'
 				application[variables.framework.applicationKey].pluginConfig = application.pluginManager.getConfig(ID=variables.framework.applicationKey);
 				local.pc = application[variables.framework.applicationKey].pluginConfig;
+				local.pc.getApplication.setValue("instanceService", new muraManager.com.service.InstanceService(new muraManager.com.dao.InstanceDAO()));
 				setBeanFactory(local.pc.getApplication(purge=false));
 			</cfscript>
 		</cflock>
