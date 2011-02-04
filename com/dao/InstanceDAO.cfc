@@ -1,7 +1,7 @@
 component extends="DAO" {
 	
 	public query function getAllInstances() {
-		var instanceQuery = queryNew();
+		var instanceQuery = new Query();
 		instanceQuery.setSQL("
 			SELECT
 				instanceID,
@@ -17,7 +17,7 @@ component extends="DAO" {
 	}
 	
 	public query function getInstanceByID(required int id) {
-		var instanceQuery = queryNew();
+		var instanceQuery = new Query();
 		instanceQuery.setSQL("
 			SELECT
 				instanceID,

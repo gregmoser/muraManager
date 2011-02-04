@@ -1,6 +1,6 @@
 component {
 	
-	public array function getAllInstances() {
-		
+	public any function init() {
+		return this;
 	}
 }
