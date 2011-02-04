@@ -2,9 +2,10 @@
 	<h3>Dashboard</h3>	
 	<table>
 		<tr>
-			<th>Site Name</th>
+			<th>Instance Name</th>
+			<th>Host Address</th>
+			<th>Core Version</th>
+			<th>Admin Panel</th>
 		</tr>
-		<tr></tr>
 	</table>
-	<p>Hello there! Welcome to the Main view of the Admin section.</p>
 </cfoutput>
