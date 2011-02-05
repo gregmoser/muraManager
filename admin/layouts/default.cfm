@@ -5,7 +5,7 @@
 			<div class="navwrapper">
 				<ul>
 					<li class="first<cfif rc.action eq 'admin:main.default'> active</cfif>"><a href="#buildURL('admin:main')#">Dashboard</a></li>
-					<li class="last<cfif rc.action eq 'admin:setup.default'> active</cfif>"><a href="#buildURL('admin:setup')#">Setup</a></li>
+					<li class="last<cfif rc.action eq 'admin:main.editinstance'> active</cfif>"><a href="#buildURL('admin:main.editinstance')#">Add Mura Instance</a></li>
 				</ul>
 			</div>
 		</div>

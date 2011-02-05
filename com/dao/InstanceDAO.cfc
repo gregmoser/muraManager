@@ -8,15 +8,15 @@ component extends="DAO" {
 				instanceKey,
 				instanceName,
 				instanceHostname,
-				Passkey
+				instancePasskey
 			FROM
-				MuraMonitorInstance
+				MuraManagerInstance
 		");
-		instanceQuery.execute();
-		return instanceQuery.result();
+		
+		return instanceQuery.execute().getResult();
 	}
 	
-	public query function getInstanceByID(required int id) {
+	public query function getInstanceByID(required numeric id) {
 		var instanceQuery = new Query();
 		instanceQuery.setSQL("
 			SELECT
@@ -24,31 +24,31 @@ component extends="DAO" {
 				instanceKey,
 				instanceName,
 				instanceHostname,
-				Passkey
+				instancePasskey
 			FROM
-				MuraMonitorInstance
+				MuraManagerInstance
 			WHERE
 				instanceID = :id
 		");
 		instanceQuery.addParam(name="id", value=arguments.id, cfsqltype="cf_sql_int");
-		instanceQuery.execute();
-		return instanceQuery.result();
+		
+		return instanceQuery.execute().getResult();
 	}
 	
 	public any function save(required any instance) {
 		var instanceQuery = new Query();
 		if(arguments.instance.getInstanceID() == 0) {
 			instanceQuery.setSQL("
-				INSET INTO MuraManagerInstance (
+				INSERT INTO MuraManagerInstance (
 					instanceKey,
 					instanceName,
 					instanceHostname,
-					passkey
+					instancePasskey
 				) VALUES (
 					:instanceKey,
 					:instanceName,
 					:instanceHostname,
-					:passkey
+					:instancePasskey
 				)
 			");
 		} else {
@@ -59,7 +59,7 @@ component extends="DAO" {
 					instanceKey = :instanceKey,
 					instanceName = :instanceName,
 					instanceHostname = :instanceHostname,
-					passkey = :passkey
+					instancePasskey = :instancePasskey
 				WHERE
 					instanceID = :instanceID
 			");
@@ -68,9 +68,18 @@ component extends="DAO" {
 		instanceQuery.addParam(name="instanceKey", value=arguments.instance.getInstanceKey(), cfsqltype="cf_sql_varchar");
 		instanceQuery.addParam(name="instanceName", value=arguments.instance.getInstanceName(), cfsqltype="cf_sql_varchar");
 		instanceQuery.addParam(name="instanceHostname", value=arguments.instance.getInstanceHostname(), cfsqltype="cf_sql_varchar");
-		instanceQuery.addParam(name="passkey", value=arguments.instance.getPasskey(), cfsqltype="cf_sql_varchar");
-		instanceQuery.execute();
+		instanceQuery.addParam(name="instancePasskey", value=arguments.instance.getInstancePasskey(), cfsqltype="cf_sql_varchar");
 		
-		return instanceQuery.result();
+		return instanceQuery.execute().getResult();
+	}
+	
+	public any function delete(required any instance) {
+		var instanceQuery = new Query();
+		instanceQuery.setSQL("
+			DELETE FROM MuraManagerInstance	WHERE instanceID = :instanceID
+		");
+		instanceQuery.addParam(name="instanceID", value=arguments.instance.getInstanceID(), cfsqltype="cf_sql_varchar");
+		instanceQuery.execute();
+		return true;
 	}
 } 

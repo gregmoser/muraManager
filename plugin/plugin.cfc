@@ -76,7 +76,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	
 	<cffunction name="installDatabase" access="private" returntype="any" output="false">
 		<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
-			CREATE TABLE [dbo].[MuraMonitorInstance] (
+			CREATE TABLE [dbo].[MuraManagerInstance] (
 				[instanceID] [int] IDENTITY(1,1) NOT NULL,
 				[instanceName] [char](50) NULL,
 				[instanceHostname] [char](50) NULL,
@@ -94,7 +94,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	
 	<cffunction name="deleteDatabase" access="private" returntype="any" output="false">
 		<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
-			DROP TABLE [MuraMonitorInstance]
+			DROP TABLE [MuraManagerInstance]
 		</cfquery>
 		<cfreturn true />
 	</cffunction>

@@ -4,11 +4,12 @@ component extends="Entity" accessors="true" {
 	property name="instanceKey";
 	property name="instanceName";
 	property name="instanceHostname";
-	property name="passkey";
+	property name="instancePasskey";
+	property name="status";
 	
 	public string function getTransactionKey() {
 		var date = #DateFormat(now(), "MM-DD-YYYY")#;
-		var passdate = lcase(hash(lcase("#getPasskey()##date#")));
+		var passdate = lcase(hash(lcase("#getInstancePasskey()##date#")));
 		return lcase(hash(lcase("#passdate##getInstanceKey()#")));
 	}
 	
@@ -17,5 +18,13 @@ component extends="Entity" accessors="true" {
 			variables.instanceID = 0;
 		}
 		return variables.instanceID;
+	}
+	
+	public any function getStatus() {
+		if(!isDefined("variables.status")) {
+			var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?transactionKey=#getTransactionKey()#");
+			variables.Status = StatusService.getStatus();
+		}
+		return variables.Status;
 	}
 }
