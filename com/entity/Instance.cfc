@@ -22,9 +22,9 @@ component extends="Entity" accessors="true" {
 	
 	public any function getStatus() {
 		if(!isDefined("variables.status")) {
-			var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?transactionKey=#getTransactionKey()#");
-			variables.Status = StatusService.getStatus();
+			var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?wsdl");
+			variables.Status = StatusService.getStatus(transactionKey = getTransactionKey());
 		}
-		return variables.Status;
+		return  deserializeJSON(variables.Status);
 	}
 }

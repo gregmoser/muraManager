@@ -59,11 +59,11 @@ component extends="DAO" {
 					instanceKey = :instanceKey,
 					instanceName = :instanceName,
 					instanceHostname = :instanceHostname,
-					instancePasskey = :instancePasskey
+					instancePasskey = :instancePasskey  
 				WHERE
 					instanceID = :instanceID
 			");
-			instanceQuery.addParam(name="instanceID", value=arguments.instance.getInstanceID(), cfsqltype="cf_sql_varchar");
+			instanceQuery.addParam(name="instanceID", value=arguments.instance.getInstanceID(), cfsqltype="cf_sql_int");
 		}
 		instanceQuery.addParam(name="instanceKey", value=arguments.instance.getInstanceKey(), cfsqltype="cf_sql_varchar");
 		instanceQuery.addParam(name="instanceName", value=arguments.instance.getInstanceName(), cfsqltype="cf_sql_varchar");
