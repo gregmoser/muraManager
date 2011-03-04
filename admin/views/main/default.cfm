@@ -2,25 +2,39 @@
 
 <cfoutput>
 	<div class="adminmaindefault">
-		<h3>Dashboard</h3>
 		<table class="stripe">
 			<tr>
 				<th class="varWidth">Name</th>
 				<th>Total Sites</th>
+				<th>Management</th>
 				<th class="administration"></th>
 			</tr>	
 			<cfloop array="#rc.AllInstances#" index="instance">
-				<tr>
-					<td class="varWidth">#instance.getInstanceName()#</td>
-					<td>#arrayLen(instance.getStatus().Sites)#</td>
-					<td class="administration">
-						<ul class="three">
-							<li class="edit"><a href="#buildURL(action='admin:instance.edit', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a></li>
-							<li class="preview"><a href="http://#instance.getInstanceHostname()#/admin">Go To Admin</a></li>
-							<li class="delete"><a href="#buildURL(action='admin:instance.delete', queryString='instanceID=#instance.getInstanceID()#')#">Delete</a></li>
-						</ul>
-					</td>
-				</tr>
+				<cfif structKeyExists(instance.getStatus(), "sites")>
+					<tr>
+						<td class="varWidth">#instance.getInstanceName()#</td>
+						<td>#arrayLen(instance.getStatus().Sites)#</td>
+						<td><a href="#buildURL(action='admin:utility.external', queryString='site=http://#instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cDashboard.main&siteid=default')#"">Launch Admin</a></td>
+						<td class="administration">
+							<ul class="three">
+								<li class="edit"><a href="#buildURL(action='admin:instance.edit', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a></li>
+								<li class="viewDetails"><a href="#buildURL(action='admin:instance.detail', queryString='instanceID=#instance.getInstanceID()#')#">View Details</a></li>
+								<li class="delete"><a href="#buildURL(action='admin:instance.delete', queryString='instanceID=#instance.getInstanceID()#')#">Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				<cfelse>
+					<tr>
+						<td class="varWidth">#instance.getInstanceName()#</td>
+						<td colspan="2">(no access)</td>
+						<td class="administration">
+							<ul class="two">
+								<li class="edit"><a href="#buildURL(action='admin:instance.edit', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a></li>
+								<li class="delete"><a href="#buildURL(action='admin:instance.delete', queryString='instanceID=#instance.getInstanceID()#')#">Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				</cfif>
 			</cfloop>
 		</table>
 	</div>

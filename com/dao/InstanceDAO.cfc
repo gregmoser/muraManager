@@ -2,6 +2,9 @@ component extends="DAO" {
 	
 	public query function getAllInstances() {
 		var instanceQuery = new Query();
+		instanceQuery.setDataSource(application.configBean.getDatasource());
+		instanceQuery.setUsername(application.configBean.getUsername());
+		instanceQuery.setPassword(application.configBean.getPassword());
 		instanceQuery.setSQL("
 			SELECT
 				instanceID,
@@ -18,6 +21,9 @@ component extends="DAO" {
 	
 	public query function getInstanceByID(required numeric id) {
 		var instanceQuery = new Query();
+		instanceQuery.setDataSource(application.configBean.getDatasource());
+		instanceQuery.setUsername(application.configBean.getUsername());
+		instanceQuery.setPassword(application.configBean.getPassword());
 		instanceQuery.setSQL("
 			SELECT
 				instanceID,
@@ -37,6 +43,9 @@ component extends="DAO" {
 	
 	public any function save(required any instance) {
 		var instanceQuery = new Query();
+		instanceQuery.setDataSource(application.configBean.getDatasource());
+		instanceQuery.setUsername(application.configBean.getUsername());
+		instanceQuery.setPassword(application.configBean.getPassword());
 		if(arguments.instance.getInstanceID() == 0) {
 			instanceQuery.setSQL("
 				INSERT INTO MuraManagerInstance (
@@ -69,12 +78,14 @@ component extends="DAO" {
 		instanceQuery.addParam(name="instanceName", value=arguments.instance.getInstanceName(), cfsqltype="cf_sql_varchar");
 		instanceQuery.addParam(name="instanceHostname", value=arguments.instance.getInstanceHostname(), cfsqltype="cf_sql_varchar");
 		instanceQuery.addParam(name="instancePasskey", value=arguments.instance.getInstancePasskey(), cfsqltype="cf_sql_varchar");
-		
 		return instanceQuery.execute().getResult();
 	}
 	
 	public any function delete(required any instance) {
 		var instanceQuery = new Query();
+		instanceQuery.setDataSource(application.configBean.getDatasource());
+		instanceQuery.setUsername(application.configBean.getUsername());
+		instanceQuery.setPassword(application.configBean.getPassword());
 		instanceQuery.setSQL("
 			DELETE FROM MuraManagerInstance	WHERE instanceID = :instanceID
 		");

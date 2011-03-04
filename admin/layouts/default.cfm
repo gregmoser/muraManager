@@ -1,15 +1,7 @@
 <cfsavecontent variable="local.newBody">
 	<cfoutput>
 		<div class="mfw1adminblock">
-			<div id="pageTitle"><h2>mura Manager</h2></div>
-			<div>
-				<ul id="navTask">
-					<li><a href="#buildURL('admin:main')#">Dashboard</a></li>
-					<li><a href="#buildURL('admin:instance.create')#">Add Mura Instance</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="mfw1adminblock">
+			<h2>mura Manger | #rc.sectionTitle# #rc.itemTitle#</h2>
 			#body#
 		</div>
 	</cfoutput>
