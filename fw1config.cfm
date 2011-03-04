@@ -36,7 +36,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	variables.framework.suppressImplicitService = false;
 	variables.framework.unhandledExtensions = 'cfc';
 	variables.framework.unhandledPaths = '/flex2gateway';
-	variables.framework.preserveKeyURLKey = 'fw1pk';
+	variables.framework.preserveKeyURLKey = 'muraManager';
 	variables.framework.maxNumContextsPreserved = 10;
 	variables.framework.cacheFileExists = false;
 	variables.framework.usingSubSystems = instance.usingSubSystems;

@@ -1,25 +1,31 @@
+<cfparam name="rc.allInstances" type="array" />
+
 <cfoutput>
-	<h3>Dashboard</h3>	
-	<cfloop array="#rc.AllInstances#" index="instance">
-		<div style="border:5px solid ##333333">
-			<table>
+	<div class="adminmaindefault">
+		<h3>Dashboard</h3>
+		<table class="stripe">
+			<tr>
+				<th class="varWidth">Name</th>
+				<th>Total Sites</th>
+				<th class="administration"></th>
+			</tr>	
+			<cfloop array="#rc.AllInstances#" index="instance">
 				<tr>
-					<th>Instance Name</th>
-					<th>Instance Key</th>
-					<th>Instance Hostname</th>
-					<th>Admin</th>
-				</tr>
-				<tr>
-					<td>#instance.getInstanceName()#</td>
-					<td>#instance.getInstanceKey()#</td>
-					<td>#instance.getInstanceHostname()#</td>
-					<td>
-						<a href="http://#instance.getInstanceHostname()#/admin">Go To Admin</a> |
-						<a href="#buildURL(action='admin:main.editinstance', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a> |
-						<a href="#buildURL(action='admin:main.deleteinstance', queryString='instanceID=#instance.getInstanceID()#')#">Delete</a>
+					<td class="varWidth">#instance.getInstanceName()#</td>
+					<td>#arrayLen(instance.getStatus().Sites)#</td>
+					<td class="administration">
+						<ul class="three">
+							<li class="edit"><a href="#buildURL(action='admin:instance.edit', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a></li>
+							<li class="preview"><a href="http://#instance.getInstanceHostname()#/admin">Go To Admin</a></li>
+							<li class="delete"><a href="#buildURL(action='admin:instance.delete', queryString='instanceID=#instance.getInstanceID()#')#">Delete</a></li>
+						</ul>
 					</td>
 				</tr>
-			</table>
+			</cfloop>
+		</table>
+	</div>
+</cfoutput>
+<!---
 			<cfset instanceStatus = instance.getStatus() />
 			<cfif not isDefined("instanceStatus.error")>
 				<strong>Sites</strong>
@@ -62,3 +68,4 @@
 		</div>
 	</cfloop>
 </cfoutput>
+--->

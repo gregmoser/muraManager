@@ -12,7 +12,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 
 --->
 	<cfscript>
-		local.str = '<link rel="stylesheet" type="text/css" href="/plugins/#rc.pc.getDirectory()#/assets/css/mfw1.css" />';
+		local.str = '<link rel="stylesheet" type="text/css" href="/plugins/#rc.pc.getDirectory()#/assets/css/muraManager.css" />';
 	</cfscript>
 	<cfhtmlhead text="#local.str#" />
 </cfsilent>
