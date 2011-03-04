@@ -30,7 +30,7 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	variables.framework.defaultSubsystem = instance.defaultSubsystem;
 	//variables.framework.reload = 'reload';
 	//variables.framework.password = 'appreload';
-	variables.framework.reloadApplicationOnEveryRequest = true;
+	variables.framework.reloadApplicationOnEveryRequest = false;
 	variables.framework.generateSES = false;
 	variables.framework.SESOmitIndex = true;
 	variables.framework.suppressImplicitService = false;
