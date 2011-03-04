@@ -43,7 +43,8 @@
 	<cfif not rc.edit>
 		<div class="tabs initActiveTab ui-tabs ui-widget ui-widget-content ui-corner-all">
 			<ul>
-				<li><a href="##tabSites" onclick="return false;"><span>Sites</span></a></li>	
+				<li><a href="##tabSites" onclick="return false;"><span>Sites</span></a></li>
+				<li><a href="##tabComments" onclick="return false;"><span>Pending Comments</span></a></li>	
 				<li><a href="##tabPlugins" onclick="return false;"><span>Plugins</span></a></li>
 			</ul>
 			<div id="tabSites">
@@ -51,12 +52,14 @@
 					<th class="varWidth">Site Name</th>
 					<th>Site ID</th>
 					<th>Site Theme</th>
+					<th>Version</th>
 					<th class="administration"></th>
 				<cfloop array="#rc.instance.getStatus().sites#" index="local.site">
 					<tr>
 						<td class="varWidth">#site.site#</td>
 						<td>#site.siteid#</td>
 						<td>#site.theme#</td>
+						<td>#site.siteVersion#</td>
 						<td class="administration">
 							<ul class="two">
 								<li class="edit"><a href="#buildURL(action='admin.utility.external', queryString='site=http://#rc.instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cSettings.editSite&siteid=#site.siteid#')#">Edit Site</a></li>
@@ -65,6 +68,30 @@
 						</td>
 					</tr>
 				</cfloop>
+				</table>
+			</div>
+			<div id="tabComments">
+				<table class="stripe">
+					<th class="varWidth">Content</th>
+					<th>Site</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>IP</th>
+					<th class="administration"></th>
+					<cfloop array="#rc.instance.getStatus().comments#" index="local.comment">
+						<tr>
+							<td class="varWidth">#local.comment.title#</td>
+							<td>#local.comment.site#</td>
+							<td>#local.comment.name#</td>
+							<td><a href="mailto:#local.comment.email#">#local.comment.email#</a></td>
+							<td>#local.comment.ip#</td>
+							<td class="administration">
+								<ul class="one">
+									<li class="preview"><a href="#buildURL(action='admin:utility.external', queryString='site=http://#rc.instance.getSiteStatus(local.comment.siteid).domain#/#local.comment.siteid#/index.cfm/#local.comment.Filename#')#">Preview Site</a></li>
+								</ul>
+							</td>
+						</tr>
+					</cfloop>
 				</table>
 			</div>
 			<div id="tabPlugins">
@@ -89,6 +116,7 @@
 					</cfloop>
 				</table>
 			</div>
+			
 		</div>
 	</cfif>
 </cfoutput>

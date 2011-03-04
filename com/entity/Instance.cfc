@@ -20,10 +20,28 @@ component extends="Entity" accessors="true" {
 		return variables.instanceID;
 	}
 	
+	public any function getSiteStatus(required string siteID) {
+		var status = getStatus();
+		var site = structNew();
+		for(var i = 1; i <= arrayLen(status.sites); i++) {
+			if(status.sites[i].siteid == arguments.siteid) {
+				site = status.sites[i];
+			}
+		}
+		return site;
+	}
+	
 	public any function getStatus() {
 		if(!isDefined("variables.status")) {
 			var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?wsdl");
-			variables.Status = StatusService.getStatus(transactionKey = getTransactionKey());
+			try {
+				variables.Status = StatusService.getStatus(transactionKey = getTransactionKey());	
+			} 
+			catch(any e) {
+				var tempStatus = structNew();
+				tempStatus.error = "Could Not Access Web Service";
+				variables.Status = serializeJSON(tempStatus);
+			}
 		}
 		return  deserializeJSON(variables.Status);
 	}
