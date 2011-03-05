@@ -33,8 +33,8 @@ component extends="Entity" accessors="true" {
 	
 	public any function getStatus() {
 		if(!isDefined("variables.status")) {
-			var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?wsdl");
 			try {
+				var StatusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?wsdl");
 				variables.Status = StatusService.getStatus(transactionKey = getTransactionKey());	
 			} 
 			catch(any e) {
