@@ -62,8 +62,8 @@
 						<td>#site.siteVersion#</td>
 						<td class="administration">
 							<ul class="two">
-								<li class="edit"><a href="#buildURL(action='admin.utility.external', queryString='site=http://#rc.instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cSettings.editSite&siteid=#site.siteid#')#">Edit Site</a></li>
-								<li class="preview"><a href="">Preview Site</a></li>
+								<li class="edit"><a href="http://#rc.instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cSettings.editSite&siteid=#site.siteid#" target="_blank">Edit Site</a></li>
+								<li class="preview"><a href="http://#rc.instance.getSiteStatus(site.siteid).domain#/" target="_blank">Preview Site</a></li>
 							</ul>
 						</td>
 					</tr>
@@ -87,7 +87,7 @@
 							<td>#local.comment.ip#</td>
 							<td class="administration">
 								<ul class="one">
-									<li class="preview"><a href="#buildURL(action='admin:utility.external', queryString='site=http://#rc.instance.getSiteStatus(local.comment.siteid).domain#/#local.comment.siteid#/index.cfm/#local.comment.Filename#')#">Preview Site</a></li>
+									<li class="preview"><a href="http://#rc.instance.getSiteStatus(local.comment.siteid).domain#/#local.comment.siteid#/index.cfm/#local.comment.Filename#" target="_blank">Preview Site</a></li>
 								</ul>
 							</td>
 						</tr>
@@ -109,7 +109,7 @@
 							<td>#local.plugin.version#</td>
 							<td class="administration">
 								<ul class="one">
-									<li class="edit"><a href="#buildURL(action='admin.utility.external', queryString='site=http://#rc.instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cSettings.editPlugin&moduleID=#local.plugin.moduleID#')#">Edit Site</a></li>
+									<li class="edit"><a href="http://#rc.instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cSettings.editPlugin&moduleID=#local.plugin.moduleID#" target="_blank">Edit Site</a></li>
 								</ul>
 							</td>
 						</tr>
