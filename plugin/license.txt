@@ -4,7 +4,7 @@ CAREFULLY READ THE FOLLOWING LICENSE AGREEMENT. BY SELECTING "I AGREE" AND/OR US
 
 LICENSE GRANT
 
-The package contains software ("Software") and related explanatory written materials ("Documentation"). "Software" includes any upgrades, modified versions, updates, additions and copies of the Software. "You" means the person or company who is being licensed to use the Software or Documentation. "We" and "us" means Stephen J. Withington, Jr.
+The package contains software ("Software") and related explanatory written materials ("Documentation"). "Software" includes any upgrades, modified versions, updates, additions and copies of the Software. "You" means the person or company who is being licensed to use the Software or Documentation. "We" and "us" means Gregory J Moser.
 
 We hereby grant you a nonexclusive license to use one copy of the Software on any single Mura CMS installation, provided the Software is in use on only one Mura CMS installation at any time. The Software is "in use" on a Mura CMS installation when it is loaded into temporary memory (RAM) or installed into the permanent memory of a computer - for example, a hard disk, CD-ROM or other storage device.
 
