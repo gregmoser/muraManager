@@ -1,5 +1,6 @@
-component {
-	public void function set(required any record) {
-		
-	}
-}
+<cfcomponent>
+	<cffunction name="set">
+		<cfargument name="record" />
+		<!--- Add Logic Here --->
+	</cffunction>
+</cfcomponent>

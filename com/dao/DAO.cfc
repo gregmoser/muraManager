@@ -1,5 +1,7 @@
-component {
-	public any function init() {
-		return this;
-	}
-}
+<cfcomponent>
+	
+	<cffunction name="init">
+		<cfreturn this />
+	</cffunction>
+	
+</cfcomponent>

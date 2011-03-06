@@ -1,3 +1,4 @@
+<cfparam name="rc.showTKey" type="boolean" default="false" />
 <cfparam name="rc.allInstances" type="array" />
 
 <cfoutput>
@@ -14,10 +15,11 @@
 			<cfloop array="#rc.AllInstances#" index="instance">
 				<cfif structKeyExists(instance.getStatus(), "sites")>
 					<tr>
-						<td class="varWidth"><a href="#buildURL(action='admin:instance.detail', queryString='instanceID=#instance.getInstanceID()#')#">#instance.getInstanceName()#</a></td>
+						<td class="varWidth"><a href="#buildURL(action='admin:instance.detail', queryString='instanceID=#instance.getInstanceID()#')#">#instance.getInstanceName()#</a>
+						<cfif rc.showTKey>(#instance.getTransactionKey()#)</cfif></td>
 						<td>#arrayLen(instance.getStatus().Comments)#</td>
 						<td>#arrayLen(instance.getStatus().Sites)#</td>
-						<td>#instance.getStatus().version#</td>
+						<td>#instance.getStatus().coreVersion#</td>
 						<td><a href="http://#instance.getInstanceHostname()#/admin/index.cfm?fuseaction=cDashboard.main&siteid=default" target="_blank">Launch Admin</a></td>
 						<td class="administration">
 							<ul class="three">

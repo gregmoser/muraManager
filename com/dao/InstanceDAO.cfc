@@ -1,11 +1,8 @@
-component extends="DAO" {
+<cfcomponent extends="DAO">
 	
-	public query function getAllInstances() {
-		var instanceQuery = new Query();
-		instanceQuery.setDataSource(application.configBean.getDatasource());
-		instanceQuery.setUsername(application.configBean.getUsername());
-		instanceQuery.setPassword(application.configBean.getPassword());
-		instanceQuery.setSQL("
+	<cffunction name="getAllInstances">
+		
+		<cfquery name="instanceQuery" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#" >
 			SELECT
 				instanceID,
 				instanceKey,
@@ -14,17 +11,15 @@ component extends="DAO" {
 				instancePasskey
 			FROM
 				MuraManagerInstance
-		");
+		</cfquery>
 		
-		return instanceQuery.execute().getResult();
-	}
+		<cfreturn instanceQuery />
+	</cffunction>
 	
-	public query function getInstanceByID(required numeric id) {
-		var instanceQuery = new Query();
-		instanceQuery.setDataSource(application.configBean.getDatasource());
-		instanceQuery.setUsername(application.configBean.getUsername());
-		instanceQuery.setPassword(application.configBean.getPassword());
-		instanceQuery.setSQL("
+	<cffunction name="getInstanceByID">
+		<cfargument name="instanceID" />
+		
+		<cfquery name="instanceQuery" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#" >
 			SELECT
 				instanceID,
 				instanceKey,
@@ -34,63 +29,54 @@ component extends="DAO" {
 			FROM
 				MuraManagerInstance
 			WHERE
-				instanceID = :id
-		");
-		instanceQuery.addParam(name="id", value=arguments.id, cfsqltype="cf_sql_int");
+				instanceID = <cfqueryparam value="#arguments.instanceID#" />
+		</cfquery>
 		
-		return instanceQuery.execute().getResult();
-	}
+		<cfreturn instanceQuery />
+	</cffunction>
 	
-	public any function save(required any instance) {
-		var instanceQuery = new Query();
-		instanceQuery.setDataSource(application.configBean.getDatasource());
-		instanceQuery.setUsername(application.configBean.getUsername());
-		instanceQuery.setPassword(application.configBean.getPassword());
-		if(arguments.instance.getInstanceID() == 0) {
-			instanceQuery.setSQL("
+	<cffunction name="save">
+		<cfargument name="instance" />
+		
+		<cfif arguments.instance.getInstanceID() eq 0>
+			<cfquery name="instanceQuery" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#" >
 				INSERT INTO MuraManagerInstance (
 					instanceKey,
 					instanceName,
 					instanceHostname,
 					instancePasskey
 				) VALUES (
-					:instanceKey,
-					:instanceName,
-					:instanceHostname,
-					:instancePasskey
+					<cfqueryparam value="#arguments.instance.getInstanceKey()#" />,
+					<cfqueryparam value="#arguments.instance.getInstanceName()#" />,
+					<cfqueryparam value="#arguments.instance.getInstanceHostname()#" />,
+					<cfqueryparam value="#arguments.instance.getInstancePasskey()#" />
 				)
-			");
-		} else {
-			instanceQuery.setSQL("
+			</cfquery>
+		<cfelse>
+			<cfquery name="instanceQuery" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#" >
 				UPDATE
 					MuraManagerInstance
 				SET
-					instanceKey = :instanceKey,
-					instanceName = :instanceName,
-					instanceHostname = :instanceHostname,
-					instancePasskey = :instancePasskey  
+					instanceKey = <cfqueryparam value="#arguments.instance.getInstanceKey()#" />,
+					instanceName = <cfqueryparam value="#arguments.instance.getInstanceName()#" />,
+					instanceHostname = <cfqueryparam value="#arguments.instance.getInstanceHostname()#" />,
+					instancePasskey = <cfqueryparam value="#arguments.instance.getInstancePasskey()#" />  
 				WHERE
-					instanceID = :instanceID
-			");
-			instanceQuery.addParam(name="instanceID", value=arguments.instance.getInstanceID(), cfsqltype="cf_sql_int");
-		}
-		instanceQuery.addParam(name="instanceKey", value=arguments.instance.getInstanceKey(), cfsqltype="cf_sql_varchar");
-		instanceQuery.addParam(name="instanceName", value=arguments.instance.getInstanceName(), cfsqltype="cf_sql_varchar");
-		instanceQuery.addParam(name="instanceHostname", value=arguments.instance.getInstanceHostname(), cfsqltype="cf_sql_varchar");
-		instanceQuery.addParam(name="instancePasskey", value=arguments.instance.getInstancePasskey(), cfsqltype="cf_sql_varchar");
-		return instanceQuery.execute().getResult();
-	}
+					instanceID = <cfqueryparam value="#arguments.instance.getInstanceID()#" />
+			</cfquery>
+		</cfif>
+		
+		<cfreturn arguments.instance />
+	</cffunction>
 	
-	public any function delete(required any instance) {
-		var instanceQuery = new Query();
-		instanceQuery.setDataSource(application.configBean.getDatasource());
-		instanceQuery.setUsername(application.configBean.getUsername());
-		instanceQuery.setPassword(application.configBean.getPassword());
-		instanceQuery.setSQL("
-			DELETE FROM MuraManagerInstance	WHERE instanceID = :instanceID
-		");
-		instanceQuery.addParam(name="instanceID", value=arguments.instance.getInstanceID(), cfsqltype="cf_sql_varchar");
-		instanceQuery.execute();
-		return true;
-	}
-} 
+	<cffunction name="delete">
+		<cfargument name="instance" />
+		
+		<cfquery name="instanceQuery" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#" >
+			DELETE FROM MuraManagerInstance	WHERE instanceID = <cfqueryparam value="#arguments.instance.getInstanceID()#" />
+		</cfquery>
+		
+		<cfreturn true />
+	</cffunction>
+	
+</cfcomponent>

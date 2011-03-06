@@ -1,29 +1,42 @@
-component extends="Service" accessors="true" {
-			
-	property name="dao";
-			
-	public any function init(required any DAO) {
-		setDAO(arguments.DAO);
-		return this;
-	}
+<cfcomponent extends="Service">
 	
-	public any function save(required any instance) {
-		return getDAO().save(arguments.instance);
-	}
+	<cfset variables.DAO = "" />
 	
-	public any function read(required numeric instanceID) {
-		return queryToEntity(getDAO().getInstanceByID(arguments.instanceID), true);
-	}
+	<cffunction name="init">
+		<cfargument name="DAO" />
+		<cfset setDAO(arguments.DAO) />
+		<cfreturn this />
+	</cffunction>
 	
-	public any function delete(required any instance) {
-		return getDAO().delete(arguments.instance);
-	}
+	<cffunction name="getDAO">
+		<cfreturn variables.DAO />
+	</cffunction>
+	<cffunction name="setDAO">
+		<cfargument name="DAO" />
+		<cfset variables.DAO = arguments.DAO />
+	</cffunction>
 	
-	public array function getAllInstances() {
-		return queryToEntity(getDAO().getAllInstances());
-	}
+	<cffunction name="save">
+		<cfargument name="instance" />
+		<cfreturn getDAO().save(arguments.instance) />
+	</cffunction>
 	
-	public any function getNewEntity() {
-		return new com.entity.Instance(); 
-	}
+	<cffunction name="read">
+		<cfargument name="instanceID" />
+		<cfreturn queryToEntity(getDAO().getInstanceByID(arguments.instanceID), true) />
+	</cffunction>
+	
+	<cffunction name="delete">
+		<cfargument name="instance" />
+		<cfreturn getDAO().delete(arguments.instance) />
+	</cffunction>
+	
+	<cffunction name="getAllInstances">
+		<cfreturn queryToEntity(getDAO().getAllInstances()) />
+	</cffunction>
+	
+	<cffunction name="getNewEntity">
+		<cfreturn CreateObject("component", "muraManager.com.entity.Instance") />
+	</cffunction>
+</cfcomponent>
 }

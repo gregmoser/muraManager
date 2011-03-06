@@ -1,4 +1,6 @@
+<cfparam name="rc.showTKey" type="boolean" default="false" />
 <cfparam name="rc.edit" type="boolean" default="false" />
+
 <cfoutput>
 	<cfif rc.edit> 
 	<form action="?action=admin:instance.save" method="post">
@@ -32,6 +34,10 @@
 			<cfif rc.edit>
 				<dt>Passkey</dt>
 				<dd><input type="text" name="instancePasskey" value="#rc.instance.getInstancePasskey()#" /></dd>
+			</cfif>
+			<cfif rc.showTKey>
+				<dt>Tansaction Key</dt>
+				<dd>#rc.instance.getTransactionKey()#</dd>
 			</cfif>
 		</dl>
 	<cfif rc.edit> 
