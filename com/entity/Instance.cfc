@@ -1,4 +1,4 @@
-<cfcomponent extends="Entity">
+<cfcomponent extends="Entity" output="false">
 	
 	<cfset variables.instanceID = 0 />
 	<cfset variables.instanceKey = "" />
@@ -6,7 +6,7 @@
 	<cfset variables.instanceHostname = "" />
 	<cfset variables.instancePasskey = "" />
 	
-	<cffunction name="getInstanceID">
+	<cffunction name="getInstanceID" output="false">
 		<cfreturn trim(variables.instanceID) />
 	</cffunction>
 	<cffunction name="setInstanceID">
@@ -14,7 +14,7 @@
 		<cfset variables.instanceID = trim(arguments.instanceID) />
 	</cffunction>
 	
-	<cffunction name="getInstanceKey">
+	<cffunction name="getInstanceKey" output="false">
 		<cfreturn trim(variables.instanceKey) />
 	</cffunction>
 	<cffunction name="setInstanceKey">
@@ -22,7 +22,7 @@
 		<cfset variables.instanceKey = trim(arguments.instanceKey) />
 	</cffunction>
 	
-	<cffunction name="getInstanceName">
+	<cffunction name="getInstanceName" output="false">
 		<cfreturn trim(variables.instanceName) />
 	</cffunction>
 	<cffunction name="setInstanceName">
@@ -30,7 +30,7 @@
 		<cfset variables.instanceName = trim(arguments.instanceName) />
 	</cffunction>
 
-	<cffunction name="getInstanceHostname">
+	<cffunction name="getInstanceHostname" output="false">
 		<cfreturn trim(variables.instanceHostname) />
 	</cffunction>
 	<cffunction name="setInstanceHostname">
@@ -38,7 +38,7 @@
 		<cfset variables.instanceHostname = trim(arguments.instanceHostname) /> 
 	</cffunction>
 	
-	<cffunction name="getInstancePasskey">
+	<cffunction name="getInstancePasskey" output="false">
 		<cfreturn trim(variables.instancePasskey) />
 	</cffunction>
 	<cffunction name="setInstancePasskey">
@@ -46,13 +46,13 @@
 		<cfset variables.instancePasskey = trim(arguments.instancePasskey) />
 	</cffunction>
 	
-	<cffunction name="getTransactionKey">
+	<cffunction name="getTransactionKey" output="false">
 		<cfset var date = DateFormat(now(), "MM-DD-YYYY") />
 		<cfset var passdate = lcase(hash(lcase("#getInstancePasskey()##date#"))) />
 		<cfreturn lcase(hash(lcase("#passdate##getInstanceKey()#"))) />
 	</cffunction>
 	
-	<cffunction name="getStatus">
+	<cffunction name="getStatus" output="false">
 		<cfset tempStatus = structNew() />
 		<cfif not isDefined("variables.status")>
 			<cftry>
@@ -67,7 +67,7 @@
 		<cfreturn variables.status />
 	</cffunction>
 	
-	<cffunction name="getSiteStatus">
+	<cffunction name="getSiteStatus" output="false">
 		<cfargument name="siteID" />
 		
 		<cfset var status = getStatus() />
