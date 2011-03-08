@@ -6,17 +6,19 @@
 		<table class="stripe">
 			<tr>
 				<th class="varWidth">Name</th>
+				<th>Pending Drafts</th>
 				<th>Pending Comments</th>
 				<th>Total Sites</th>
-				<th>Version</th>
+				<th>Core Version</th>
 				<th>Management</th>
 				<th class="administration"></th>
 			</tr>	
 			<cfloop array="#rc.AllInstances#" index="instance">
-				<cfif structKeyExists(instance.getStatus(), "sites")>
+				<cfif structKeyExists(instance.getStatus(), "coreVersion")>
 					<tr>
 						<td class="varWidth"><a href="#buildURL(action='admin:instance.detail', queryString='instanceID=#instance.getInstanceID()#')#">#instance.getInstanceName()#</a>
 						<cfif rc.showTKey>(#instance.getTransactionKey()#)</cfif></td>
+						<td>#arrayLen(instance.getStatus().drafts)#</td>
 						<td>#arrayLen(instance.getStatus().Comments)#</td>
 						<td>#arrayLen(instance.getStatus().Sites)#</td>
 						<td>#instance.getStatus().coreVersion#</td>

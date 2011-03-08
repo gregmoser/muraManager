@@ -5,7 +5,6 @@
 	<cfset variables.instanceName = "" />
 	<cfset variables.instanceHostname = "" />
 	<cfset variables.instancePasskey = "" />
-	<cfset variables.status = structNew() />
 	
 	<cffunction name="getInstanceID">
 		<cfreturn variables.instanceID />
@@ -55,17 +54,17 @@
 	
 	<cffunction name="getStatus">
 		<cfset tempStatus = structNew() />
-		<cfif not structKeyExists(variables.status, "error") and not structKeyExists(variables.status, "coreVersion")>
+		<cfif not isDefined("variables.status")>
 			<cftry>
 				<cfset statusService = createObject("webservice", "http://#getInstanceHostname()#/plugins/muraManagerRemote/remote.cfc?wsdl") />
 				<cfset variables.status = statusService.getStatus(getTransactionKey()) />
 				<cfcatch type="any">
 					<cfset tempStatus.error = "Could Not Access Web Service" />
-					<cfset variables.status = serializeJSON(tempStatus) />
+					<cfset variables.status = tempStatus />
 				</cfcatch>
 			</cftry>
 		</cfif>
-		<cfreturn deserializeJSON(variables.status) />
+		<cfreturn variables.status />
 	</cffunction>
 	
 	<cffunction name="getSiteStatus">
@@ -74,7 +73,7 @@
 		<cfset var status = getStatus() />
 		<cfset var site = structNew() />
 		
-		<cfloop array="status.sites" index="thisSite">
+		<cfloop array="#status.sites#" index="thisSite">
 			<cfif thisSite.siteID eq arguments.siteID>
 				<cfset site = thisSite />
 			</cfif>

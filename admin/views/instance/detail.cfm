@@ -50,16 +50,19 @@
 		<div class="tabs initActiveTab ui-tabs ui-widget ui-widget-content ui-corner-all">
 			<ul>
 				<li><a href="##tabSites" onclick="return false;"><span>Sites</span></a></li>
+				<li><a href="##tabDrafts" onclick="return false;"><span>Drafts</span></a></li>
 				<li><a href="##tabComments" onclick="return false;"><span>Pending Comments</span></a></li>	
 				<li><a href="##tabPlugins" onclick="return false;"><span>Plugins</span></a></li>
 			</ul>
 			<div id="tabSites">
 				<table class="stripe">
-					<th class="varWidth">Site Name</th>
-					<th>Site ID</th>
-					<th>Site Theme</th>
-					<th>Version</th>
-					<th class="administration"></th>
+					<tr>
+						<th class="varWidth">Site Name</th>
+						<th>Site ID</th>
+						<th>Site Theme</th>
+						<th>Version</th>
+						<th class="administration"></th>
+					</tr>
 				<cfloop array="#rc.instance.getStatus().sites#" index="local.site">
 					<tr>
 						<td class="varWidth">#site.site#</td>
@@ -76,14 +79,38 @@
 				</cfloop>
 				</table>
 			</div>
+			<div id="tabDrafts">
+				<table class="stripe">
+					<tr>
+						<th class="varWidth">Content</th>
+						<th>Site</th>
+						<th>User</th>
+						<th class="administration"></th>
+					</tr>
+					<cfloop array="#rc.instance.getStatus().drafts#" index="local.draft">
+							<tr>
+								<td class="varWidth">#local.draft.title#</td>
+								<td>#local.draft.siteid#</td>
+								<td>#local.draft.lastupdateby#</td>
+								<td class="administration">
+									<ul class="one">
+										<li class="preview"><a href="http://#rc.instance.getSiteStatus(local.draft.siteid).domain#/#local.draft.siteid#/index.cfm?previewid=#local.draft.contenthistid#&contentid=#local.draft.contentid#" target="_blank">Preview Site</a></li>
+									</ul>
+								</td>
+							</tr>
+					</cfloop>
+				</table>
+			</div>
 			<div id="tabComments">
 				<table class="stripe">
-					<th class="varWidth">Content</th>
-					<th>Site</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>IP</th>
-					<th class="administration"></th>
+					<tr>
+						<th class="varWidth">Content</th>
+						<th>Site</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>IP</th>
+						<th class="administration"></th>
+					</tr>
 					<cfloop array="#rc.instance.getStatus().comments#" index="local.comment">
 						<tr>
 							<td class="varWidth">#local.comment.title#</td>
@@ -122,7 +149,6 @@
 					</cfloop>
 				</table>
 			</div>
-			
 		</div>
 	</cfif>
 </cfoutput>
