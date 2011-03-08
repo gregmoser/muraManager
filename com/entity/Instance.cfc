@@ -7,43 +7,43 @@
 	<cfset variables.instancePasskey = "" />
 	
 	<cffunction name="getInstanceID">
-		<cfreturn variables.instanceID />
+		<cfreturn trim(variables.instanceID) />
 	</cffunction>
 	<cffunction name="setInstanceID">
 		<cfargument name="instanceID" />
-		<cfset variables.instanceID = arguments.instanceID />
+		<cfset variables.instanceID = trim(arguments.instanceID) />
 	</cffunction>
 	
 	<cffunction name="getInstanceKey">
-		<cfreturn variables.instanceKey />
+		<cfreturn trim(variables.instanceKey) />
 	</cffunction>
 	<cffunction name="setInstanceKey">
 		<cfargument name="instanceKey" />
-		<cfset variables.instanceKey = arguments.instanceKey />
+		<cfset variables.instanceKey = trim(arguments.instanceKey) />
 	</cffunction>
 	
 	<cffunction name="getInstanceName">
-		<cfreturn variables.instanceName />
+		<cfreturn trim(variables.instanceName) />
 	</cffunction>
 	<cffunction name="setInstanceName">
 		<cfargument name="instanceName" />
-		<cfset variables.instanceName = arguments.instanceName />
+		<cfset variables.instanceName = trim(arguments.instanceName) />
 	</cffunction>
 
 	<cffunction name="getInstanceHostname">
-		<cfreturn variables.instanceHostname />
+		<cfreturn trim(variables.instanceHostname) />
 	</cffunction>
 	<cffunction name="setInstanceHostname">
 		<cfargument name="instanceHostname" />
-		<cfset variables.instanceHostname = arguments.instanceHostname /> 
+		<cfset variables.instanceHostname = trim(arguments.instanceHostname) /> 
 	</cffunction>
 	
 	<cffunction name="getInstancePasskey">
-		<cfreturn variables.instancePasskey />
+		<cfreturn trim(variables.instancePasskey) />
 	</cffunction>
 	<cffunction name="setInstancePasskey">
 		<cfargument name="instancePasskey" />
-		<cfset variables.instancePasskey = arguments.instancePasskey />
+		<cfset variables.instancePasskey = trim(arguments.instancePasskey) />
 	</cffunction>
 	
 	<cffunction name="getTransactionKey">
@@ -72,10 +72,11 @@
 		
 		<cfset var status = getStatus() />
 		<cfset var site = structNew() />
+		<cfset var thisSite = structNew() />
 		
 		<cfloop array="#status.sites#" index="thisSite">
 			<cfif thisSite.siteID eq arguments.siteID>
-				<cfset site = thisSite />
+				<cfset site = Duplicate(thisSite) />
 			</cfif>
 		</cfloop>
 		
