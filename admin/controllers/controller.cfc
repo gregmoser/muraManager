@@ -1,13 +1,26 @@
-component extends="mura.cfobject" accessors="true" {
+<cfcomponent extends="mura.cfobject">
 	
-	property name="fw";
+	<cfset variables.fw = "" />
 	
-	public any function init(required any fw) {
-		setFW(arguments.fw);
-	}
+	<cffunction name="getFW">
+		<cfreturn variables.fw />
+	</cffunction>
+	<cffunction name="setFW">
+		<cfargument name="fw" />
+		<cfset variables.fw = arguments.fw />
+	</cffunction>
 	
-	public any function subSystemBefore(required any rc) {
-		rc.sectionTitle = "";
-		rc.itemTitle = "";
-	}
-}
+	<cffunction name="init">
+		<cfargument name="fw" />
+		
+		<cfset setFW(arguments.fw) />
+	</cffunction>
+	
+	<cffunction name="subSystemBefore">
+		<cfargument name="rc" type="struct" />
+		
+		<cfset rc.sectionTitle = "" />
+		<cfset rc.itemTitle = "" />
+	</cffunction>
+	
+</cfcomponent>

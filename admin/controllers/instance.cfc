@@ -1,44 +1,66 @@
-component extends="controller" accessors="true" {
+<cfcomponent extends="controller">
 	
-	property name="instanceService";
+	<cfset variables.instanceService = "" />
 	
-	public void function before(required struct rc) {
-		rc.sectionTitle = "Instance Manager";
-	}
+	<cffunction name="getInstanceService">
+		<cfreturn variables.instanceService />
+	</cffunction>
+	<cffunction name="setInstanceService">
+		<cfargument name="instanceService" />
+		<cfset variables.instanceService = arguments.instanceService />
+	</cffunction>
 	
-	public void function detail(required struct rc) {
-		param name="rc.instanceID" default=0;
-		rc.instance = getInstanceService().read(rc.instanceID);
-		rc.itemTitle = ": #rc.instance.getInstanceName()#";
-	}
+	<cffunction name="before">
+		<cfargument name="rc" type="struct" />
+		
+		<cfset rc.sectionTitle = "Instance Manager" />
+	</cffunction>
 	
-	public void function edit(required struct rc) {
-		detail(rc);
-		getFW().setView("admin:instance.detail");
-		rc.edit = 1;
-		rc.itemTitle = ": Edit #rc.instance.getInstanceName()#";
-	}
+	<cffunction name="detail">
+		<cfargument name="rc" type="struct" />
+		
+		<cfparam name="rc.instanceID" default=0 />
+		<cfset rc.instance = getInstanceService().read(rc.instanceID) />
+		<cfset rc.itemTitle = ": #rc.instance.getInstanceName()#" />
+	</cffunction>
 	
-	public void function create(required struct rc) {
-		detail(rc);
-		getFW().setView("admin:instance.detail");
-		rc.edit = 1;
-		rc.itemTitle = ": Add New";
-	}
+	<cffunction name="edit">
+		<cfargument name="rc" type="struct" />
+		
+		<cfset detail(rc) />
+		<cfset getFW().setView("admin:instance.detail") />
+		<cfset rc.edit = 1 />
+		<cfset rc.itemTitle = ": Edit #rc.instance.getInstanceName()#" />
+		
+	</cffunction>
 	
-	public void function save(required struct rc) {
-		param name="rc.instanceID" default=0;
-		rc.instance = getInstanceService().read(rc.instanceID);
-		getFW().populate(cfc=rc.instance, keys="instanceID,instanceName,instanceKey,instanceHostname,instancePasskey");
-		getInstanceService().save(rc.instance);
-		getFW().redirect(action="admin:main.default");
-	}
+	<cffunction name="create">
+		<cfargument name="rc" type="struct" />
+		
+		<cfset detail(rc) />
+		<cfset getFW().setView("admin:instance.detail") />
+		<cfset rc.edit = 1 />
+		<cfset rc.itemTitle = ": Add New" />
+	</cffunction>
 	
-	public void function delete(required struct rc) {
-		param name="rc.instanceID" default=0;
-		rc.instance = getInstanceService().read(rc.instanceID);
-		getInstanceService().delete(rc.instance);
-		getFW().redirect(action="admin:main.default");
-	}
+	<cffunction name="save">
+		<cfargument name="rc" type="struct" />
+		
+		<cfparam name="rc.instanceID" default=0 />
+		
+		<cfset rc.instance = getInstanceService().read(rc.instanceID) />
+		<cfset getFW().populate(cfc=rc.instance, keys="instanceID,instanceName,instanceKey,instanceHostname,instancePasskey") />
+		<cfset getInstanceService().save(rc.instance) />
+		<cfset getFW().redirect(action="admin:main.default") />
+	</cffunction>
 	
-} 
+	<cffunction name="delete">
+		<cfargument name="rc" type="struct" />
+		
+		<cfparam name="rc.instanceID" default=0 />
+		
+		<cfset rc.instance = getInstanceService().read(rc.instanceID) />
+		<cfset getInstanceService().delete(rc.instance) />
+		<cfset getFW().redirect(action="admin:main.default") />
+	</cffunction>
+</cfcomponent>

@@ -75,20 +75,34 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 	</cffunction>
 	
 	<cffunction name="installDatabase" access="private" returntype="any" output="false">
-		<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
-			CREATE TABLE [dbo].[MuraManagerInstance] (
-				[instanceID] [int] IDENTITY(1,1) NOT NULL,
-				[instanceName] [char](50) NULL,
-				[instanceHostname] [char](50) NULL,
-				[instanceKey] [char](50) NULL,
-				[instancePasskey] [char](50) NULL,
-				CONSTRAINT [PK_MuraMonitorInstance] PRIMARY KEY CLUSTERED (
-					[instanceID] ASC
-				) WITH (
-					PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON
+		<cfif application.configBean.getDbType() eq "mysql">
+			<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
+				CREATE TABLE MuraManagerInstance (
+					instanceID int NOT NULL AUTO_INCREMENT,
+					instanceName char(50) NULL,
+					instanceHostname char(50) NULL,
+					instanceKey char(50) NULL,
+					instancePasskey char(50) NULL,
+					PRIMARY KEY (instanceID)
+				)
+			</cfquery>
+		<cfelse>
+			<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
+				CREATE TABLE [dbo].[MuraManagerInstance] (
+					[instanceID] [int] IDENTITY(1,1) NOT NULL,
+					[instanceName] [char](50) NULL,
+					[instanceHostname] [char](50) NULL,
+					[instanceKey] [char](50) NULL,
+					[instancePasskey] [char](50) NULL,
+					CONSTRAINT [PK_MuraMonitorInstance] PRIMARY KEY CLUSTERED (
+						[instanceID] ASC
+					) WITH (
+						PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON
+					) ON [PRIMARY]
 				) ON [PRIMARY]
-			) ON [PRIMARY]
-		</cfquery>
+			</cfquery>
+		</cfif>
+		
 		<cfreturn true />
 	</cffunction>
 	

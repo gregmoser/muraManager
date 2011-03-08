@@ -1,6 +1,7 @@
-component extends="controller" accessors="true" {
+<cfcomponent extends="controller" >
 	
-	public void function before(required struct rc) {
-		request.layout = false;
-	}
-} 
+	<cffunction name="before">
+		<cfset request.layout = false />
+	</cffunction>
+	
+</cfcomponent>
