@@ -34,7 +34,7 @@
 				<cfelse>
 					<tr>
 						<td class="varWidth">#instance.getInstanceName()#</td>
-						<td colspan="4">(no access)</td>
+						<td colspan="5">(no access)</td>
 						<td class="administration">
 							<ul class="two">
 								<li class="edit"><a href="#buildURL(action='admin:instance.edit', queryString='instanceID=#instance.getInstanceID()#')#">Edit</a></li>

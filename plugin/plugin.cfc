@@ -79,10 +79,10 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 			<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
 				CREATE TABLE MuraManagerInstance (
 					instanceID int NOT NULL AUTO_INCREMENT,
-					instanceName char(50) NULL,
-					instanceHostname char(50) NULL,
-					instanceKey char(50) NULL,
-					instancePasskey char(50) NULL,
+					instanceName varchar(50) NULL,
+					instanceHostname varchar(50) NULL,
+					instanceKey varchar(50) NULL,
+					instancePasskey varchar(50) NULL,
 					PRIMARY KEY (instanceID)
 				)
 			</cfquery>
@@ -90,10 +90,10 @@ CAREFULLY READ THE ENCLOSED LICENSE AGREEMENT (plugin/license.htm). BY USING THI
 			<cfquery name="rs" datasource="#application.configBean.getDatasource()#" username="#application.configBean.getUsername()#" password="#application.configBean.getPassword()#">
 				CREATE TABLE [dbo].[MuraManagerInstance] (
 					[instanceID] [int] IDENTITY(1,1) NOT NULL,
-					[instanceName] [char](50) NULL,
-					[instanceHostname] [char](50) NULL,
-					[instanceKey] [char](50) NULL,
-					[instancePasskey] [char](50) NULL,
+					[instanceName] [varchar](50) NULL,
+					[instanceHostname] [varchar](50) NULL,
+					[instanceKey] [varchar](50) NULL,
+					[instancePasskey] [varchar](50) NULL,
 					CONSTRAINT [PK_MuraMonitorInstance] PRIMARY KEY CLUSTERED (
 						[instanceID] ASC
 					) WITH (
